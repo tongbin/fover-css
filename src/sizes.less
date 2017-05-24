@@ -1,0 +1,62 @@
+@import './src/variables.less';
+
+@sizes: @size-sm, @size, @size-md, @size-lg, @size-xl;
+@size-names: -sm, e(''), -md, -lg, -xl;
+
+@s-a: t, b, l, r, a;
+@k-a: -top, -bottom, -left, -right, e('');
+@s-pm: p, m;
+@k-pm: padding, margin;
+
+.generate-pm(1);
+
+.generate-a-v(@pm, @spm, @ka, @sa, @k: 1) when (@k =< length(@size-names)) {
+  @sv: extract(@sizes, @k);
+  @sn: extract(@size-names, @k);
+  .@{spm}-@{sa}@{sn} {
+    @{pm}@{ka}: @sv;
+  }
+  .generate-a-v(@pm, @spm, @ka, @sa, @k + 1);
+}
+
+.generate-a(@pm, @spm, @j: 1) when (@j =< length(@k-a)) {
+  @ka: extract(@k-a, @j);
+  @sa: extract(@s-a, @j);
+  .generate-a-v(@pm, @spm, @ka, @sa, 1);
+  .generate-a(@pm, @spm, @j + 1);
+}
+
+.generate-pm(@i: 1) when (@i =< length(@k-pm)) {
+  @pm: extract(@k-pm, @i);
+  @spm: extract(@s-pm, @i);
+  .generate-a(@pm, @spm);
+  .generate-pm(@i + 1);
+}
+
+@k-xy: x, y;
+
+/** for x,y */
+
+.generate-a-xy(1);
+
+.generate-a-xy(@k: 1) when (@k =< length(@size-names)) {
+  @sv: extract(@sizes, @k);
+  @sn: extract(@size-names, @k);
+  .p-x@{sn} {
+    padding-left: @sv;
+    padding-right: @sv;
+  }
+  .p-y@{sn} {
+    padding-top: @sv;
+    padding-bottom: @sv;
+  }
+  .m-x@{sn} {
+    margin-left: @sv;
+    margin-right: @sv;
+  }
+  .m-y@{sn} {
+    margin-top: @sv;
+    margin-bottom: @sv;
+  }
+  .generate-a-xy(@k + 1);
+}

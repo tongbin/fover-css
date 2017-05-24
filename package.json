@@ -1,0 +1,13 @@
+{
+  "name": "favor-css",
+  "scripts": {
+    "build": "lessc --clean-css=\"--compatibility=ie9 --advanced\" ./src/main.less ./main.css"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "less": "^2.7.2",
+    "less-plugin-clean-css": "^1.5.1"
+  }
+}
